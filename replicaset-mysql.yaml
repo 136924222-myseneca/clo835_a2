@@ -10,6 +10,10 @@ spec:
   selector:
     matchLabels:
       app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
     spec:
       containers:
       - name: mysql
@@ -26,4 +30,3 @@ spec:
             memory: 100Mi
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      

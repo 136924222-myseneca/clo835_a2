@@ -22,8 +22,6 @@ spec:
       - name: frontend
         image: 508327803984.dkr.ecr.us-east-1.amazonaws.com/myimages:myapp-v1.0
         env:
-        - name: GET_HOSTS_FROM
-          value: "dns"
         - name: DBHOST
           value: "mysql-service.sqldb.svc.local.cluster"
         - name: DBPORT

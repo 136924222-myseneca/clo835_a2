@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploymentv2-frontend
+  namespace: webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: employees
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: employees
+        version: v2
+    spec:
+      containers:
+      - name: frontend
+        image: 508327803984.dkr.ecr.us-east-1.amazonaws.com/myimages:myapp-v2.0
+        env:
+        - name: GET_HOSTS_FROM
+          value: "dns"
+        - name: DBHOST
+          value: "mysql-service.sqldb.svc.cluster.local"
+        - name: DBPORT
+          value: "3306"
+        - name: DBUSER
+          value: "root"
+        - name: DATABASE
+          value: "employees"
+        - name: DBPWD
+          value: "pw"
+        - name: APP_COLOR
+          value: "blue"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+  namespace: webapp
+spec:
+  containers:
+  - name: frontend
+    image: 508327803984.dkr.ecr.us-east-1.amazonaws.com/myimages:myapp-v1.0
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    env:
+    - name: GET_HOSTS_FROM
+      value: "dns"
+    - name: DBHOST
+      value: "mysql.sqldb.svc.cluster.local"
+    - name: DBPORT
+      value: "3306"
+    - name: DBUSER
+      valueFrom:
+            secretKeyRef:
+              name: db-mysecret
+              key: user
+    - name: DATABASE
+      value: "employees"
+    - name: DBPWD
+      valueFrom:
+            secretKeyRef:
+              name: db-mysecret
+              key: password
+    - name: APP_COLOR
+      value: "blue"
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always

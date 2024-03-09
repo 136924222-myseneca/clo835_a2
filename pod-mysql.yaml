@@ -11,7 +11,10 @@ spec:
     image: 508327803984.dkr.ecr.us-east-1.amazonaws.com/myimages:mydb-v1.0
     env:
     - name: MYSQL_ROOT_PASSWORD
-      value: "pw"
+      valueFrom:
+            secretKeyRef:
+              name: db-mysecret
+              key: password
     ports:
     - containerPort: 3306
       protocol: TCP

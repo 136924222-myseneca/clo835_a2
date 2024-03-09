@@ -19,11 +19,17 @@ spec:
     - name: DBPORT
       value: "3306"
     - name: DBUSER
-      value: "root"
+      valueFrom:
+            secretKeyRef:
+              name: db-mysecret
+              key: user
     - name: DATABASE
       value: "employees"
     - name: DBPWD
-      value: "pw"
+      valueFrom:
+            secretKeyRef:
+              name: db-mysecret
+              key: password
     - name: APP_COLOR
       value: "blue"
     ports:
